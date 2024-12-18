@@ -1,0 +1,47 @@
+
+❑ 데이터 찾기(조회) (SELECT)
+▪ SELECT attribute FROM [테이블 이름] WHERE 조건;
+
+SELECT name, position FROM EMPLOYEE WHERE id = 13;
+
+SELECT EMPLOYEE.id, EMPLOYEE.name, position
+    -> FROM PROJECT, EMPLOYEE
+    -> WHERE PROJECT.id = 2002 and PROJECT.leader_id = EMPLOYEE.id;
+
+
+
+❑ 별명 붙이기 (AS)
+SELECT E.id, E.name, position FROM PROJECT AS P, EMPLOYEE AS E WHERE P.id = 2002 and P.leader_id = E.id;
+
+SELECT E.id AS leader_id, E.name AS leader_name, position FROM PROJECT AS P, EMPLOYEE AS E WHERE P.id = 2002 and P.leader_id = E.id;
+
+SELECT E.id  leader_id, E.name  leader_name, position FROM PROJECT  P, EMPLOYEE  E WHERE P.id = 2002 and P.leader_id = E.id;
+
+SELECT P.id, P.name FROM EMPLOYEE AS E, WORKS_ON AS W, PROJECT AS P WHERE E.position = 'DSGN' and E.id = W.empl_id and W.proj_id = P.id;
+
+
+
+❑ DISTINCT
+SELECT DISTINCT P.id, P.name FROM EMPLOYEE AS E, WORKS_ON AS W, PROJECT AS P WHERE E.position = 'DSGN' and E.id = W.empl_id and W.proj_id = P.id;
+
+
+
+❑ LIKE
+SELECT name FROM EMPLOYEE WHERE name LIKE 'K%' or name LIKE '%G';
+
+SELECT name FROM EMPLOYEE WHERE name LIKE '%NG%';
+
+SELECT name FROM EMPLOYEE WHERE name LIKE 'J___';  (글자수 제한, 지금은 4글자 짜리 이름 찾기)
+
+
+
+❑ * (asterisk) 
+SELECT * FROM EMPLOYEE WHERE id = 11;
+
+SELECT * FROM PROJECT AS P, EMPLOYEE AS E WHERE P.id = 2002 and P.leader_id = E.id;
+
+
+
+❑ SELECT without WHERE
+SELECT name, birth_date
+    -> FROM EMPLOYEE;
