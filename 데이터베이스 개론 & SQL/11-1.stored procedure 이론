@@ -1,0 +1,38 @@
+❑ stored procedure
+▪ 사용자가 정의한 프로시저
+▪ RDBMS에 저장되고 사용되는 프로시저
+▪ 구체적인 하나의 태스크(task)를 수행한다.
+
+
+
+❑ stored procedure vs stored function
+▪ MySQL, Oracle, MS SQL Server, PostgreSQL 대상으로 조사하여 공통적인 부분을 묶어서 정리
+▪ 일부 디테일에서 차이 발생 가능
+
+▪ create 문법 
+    • stored procedure : CREATE PROCEDURE
+    • stored function : CREATE FUNCTION
+
+▪ return 키워드로 값 반환
+    • stored procedure : 불가능 (SQL server는 상태코드 반환용으로 사용 가능)
+    • stored function : 가능 (MySQL, SQL server는 값 변환하려면 필수)
+
+▪ 파라미터로 값(들) 반환
+    • stored procedure : 가능 (값(들)을 반환하려면 필수)
+    • stored function : 일부 가능 (oracle 가능하나 권장안함, postgreSQL 가능)
+
+▪ 값을 꼭 반환?
+    • stored procedure : 필수 아님 
+    • stored function : 필수
+
+▪ SQL statement에서 호출
+    • stored procedure : 불가능 
+    • stored function : 가능 
+
+▪ transaction 사용
+    • stored procedure : 가능 
+    • stored function : 대부분 불가능 (oracle 가능)
+
+▪ 주된 사용 목적
+    • stored procedure : businexx logic
+    • stored function : computation
