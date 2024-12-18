@@ -1,0 +1,44 @@
+❑ ORDER BY
+▪ 조회 결과를 특정 attributes(s) 기준으로 정렬하여 가져오고 싶을 때 사용한다.
+▪ default 정렬 방식은 오름차순이다.
+▪ 오름차순은 ASC로 표기
+▪ 내림차순은 DESC로 표기
+
+
+❑ AGGERGATE FUNCTION
+▪ 여러 tuple들의 정보를 요약해서 하나의 값으로 추출하는 함수
+▪ 대표적으로 COUNT, SUN, MAX, MIN, AVG 함수가 있다.
+▪ (주로) 관심있는 attribute에 사용된다 e.g) AVG(salary), MAX(birth_date)
+▪ NULL 값들은 제외하고 요약값을 추출한다.
+
+
+❑ GROUP BY
+▪ 관심있는 attribute(s) 기준으로 그룹을 나눠서 aggregate function을 적용하고 싶을 때 사용
+▪ grouping attribute(s) : 그룹을 나누는 기준이 되는 attribute(s)
+▪ grouping attribute(s)에 NULL 값이 있을 때는 NULL 값을 가지는 tulpe끼리 묶인다.
+
+
+❑ HAVING
+▪ GROUP BY와 함께 사용
+▪ aggregate function의 결과값을 바탕으로 그룹을 필터링하고 싶을 때 사용
+▪ HAVING절에 명시된 조건을 만족하는 그룹만 결과에 포함
+
+
+❑ SELECT
+▪ SELECT attribute(s) or aggregate function(s)
+  FROM table(s)
+  [WHERE condition(s)]
+  [GROUP BY group attribute(s)]
+  [HAVING BY group attribute(s)]
+  [ORDER BY attribute(s)];
+
+
+❑ SELECT 실행순서
+▪ 6. SELECT attribute(s) or aggregate function(s)
+  1. FROM table(s)
+  2. [WHERE condition(s)]
+  3. [GROUP BY group attribute(s)]
+  4. [HAVING BY group attribute(s)]
+  5. [ORDER BY attribute(s)];
+▪ 각 절의 실행 순서는 개념적인 순서
+▪ 실제 실행 순서는 각 RDBMS에서 어떻게 구현했는지에 따라 다르다.
