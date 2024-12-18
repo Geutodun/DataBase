@@ -1,0 +1,42 @@
+❑ stored function
+▪ 사용자가 정의한 함수
+▪ DBMS에 저장되고 사용되는 함수
+▪ SQL의 select, insert, update, delete statement에서 사용할 수 있다.
+▪ loop를 돌면서 반복적인 작업을 수행하거나 case 키워드를 사용해서 값에 따라 분기 처리하거나 에러를 핸들링하거나 일으키는 등의 다양한 동작 정의 가능
+
+
+
+❑ stored function 삭제하기
+▪ DROP FUNCTION stored_function_name;
+
+
+
+❑ stored function 파악
+▪ SHOW FUNCTION STATUS where DB = '[데이터베이스 이름]';  
+▪ SHOW CREATE FUNCTION [function 이름];
+
+
+
+* 데이터베이스 이름 명시하기  ➔  CREATE FUNCTION  데이터베이스이름.function 이름
+
+
+
+❑ Three-tier architecture
+▪ Presentation tier
+    • 사용자에게 보여지는 부분을 담당하는 tier
+    • HTML, javascript, CSS, native app, desktop app
+
+▪ Logic tier
+    • 서비스와 관련된 기능과 정책 등등 비지니스로 로직을 담당하는 tier
+    • application tier, middle tier 라고도 불림
+    • Java + SPRING, Python + Django, etc . .
+
+▪ Data tier
+    • 데이터를 저장하고 관리하고 제공하는 역할을 하는 tier
+    • NySQL, Oracle, SQL Sever, PostgreSQL, MongoDB
+
+
+
+❑ stored function 사용 타이밍  [주관적 견해, 중요X]
+▪ util 함수로 쓰기에 괜찮
+▪ 비지니스 로직에 쓰는 건 안좋을 것 같다.
