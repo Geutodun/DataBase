@@ -1,0 +1,51 @@
+❑ SELECT with subquery
+▪ SELECT id, name, birth_date FROM EMPLOYEE WHERE birth_date < ( SELECT birth_date FROM EMPLOYEE WHERE id = 13);
+
+▪ SELECT id, name, position FROM EMPLOYEE
+    -> WHERE (dept_id, sex) = ( SELECT dept_id, sex FROM EMPLOYEE WHERE id = 1);
+
+▪ SELECT DISTINCT empl_id FROM WORKS_ON
+    -> WHERE empl_id != 5 AND (proj_id = 2001 OR proj_id = 2002);
+
+
+
+❑ IN 사용
+▪ SELECT DISTINCT empl_id FROM WORKS_ON WHERE empl_id != 5 AND proj_id IN (2001, 2002); 
+
+▪ SELECT DISTINCT empl_id FROM WORKS_ON WHERE empl_id != 5 AND proj_id IN (SELECT proj_id FROM WORKS_ON WHERE empl_id = 5);
+
+▪ SELECT id, name FROM EMPLOYEE 
+    -> WHERE id IN (SELECT DISTINCT empl_id FROM WORKS_ON WHERE empl_id != 5 AND proj_id IN (SELECT proj_id FROM WORKS_ON WHERE empl_id = 5));
+
+▪ SELECT id, name FROM EMPLOYEE, (SELECT DISTINCT empl_id FROM WORKS_ON WHERE empl_id != 5 AND proj_id IN (SELECT proj_id FROM WORKS_ON WHERE empl_id = 5)) AS DSTNCT_E WHERE id = DSTNCT_E.empl_id;
+
+▪ SELECT P.id, P.name FROM PROJECT P  WHERE id IN ( SELECT W.proj_id FROM WORKS_ON W WHERE W.empl_id IN (1,2));
+
+
+
+❑ EXISTS 사용
+▪ SELECT P.id, P.name FROM PROJECT P  WHERE EXISTS ( SELECT * FROM WORKS_ON W WHERE W.proj_id = P.id AND W.empl_id IN (1,2));
+
+
+
+❑ NOT IN 사용
+▪ SELECT D.id, D.name FROM DEPARTMENT AS D WHERE D.id NOT IN (SELECT E.dept_id FROM
+EMPLOYEE E WHERE E.birth_date >= '2000-01-01');
+
+
+
+❑ NOT EXISTS 사용
+▪ SELECT D.id, D.name FROM DEPARTMENT AS D
+    -> WHERE NOT EXISTS (SELECT * FROM EMPLOYEE E WHERE E.dept_id = D.id AND E.birth_date >= '2000-01-01');   [2000년대생이 없는 부서의 ID와 이름]
+
+
+
+❑ ANY 사용
+▪ SELECT E.id, E.name, E.salary FROM DEPARTMENT D, EMPLOYEE E
+    -> WHERE D.leader_id = E.id AND E.salary < ANY (SELECT salary FROM EMPLOYEE WHERE id <> D.leader_id AND dept_id = E.dept_id);
+
+
+
+❑ ALL 사용
+SELECT DISTINCT E.id, E.name, E.position FROM EMPLOYEE E, WORKS_ON W
+    -> WHERE E.id = W.empl_id AND W.proj_id <> ALL ( SELECT proj_id FROM WORKS_ON WHERE empl_id = 13); [13인 직원과 같은 프로젝트에 참여하지 못한 직원]
