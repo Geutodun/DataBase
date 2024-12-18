@@ -1,0 +1,86 @@
+*IT회사 관련 RDB 만들기
+▪ MYSQL 사용(InnoDB)
+▪ 부서, 사원, 프로젝트 관련 정보들을 저장할 수 있는 관계형 데이터베이스
+▪ 스키마 정의 
+  • DEPARTMENT(부서) : id(P), name, leader_id
+  • EMPLOTEE(직원) : id(P), name, birth_date, sex, position, salary, dept_id
+  • PROJECT : id(P), name, leader_id, start_date, end_date
+  • WORKS_ON : empl_id(P), proi_id(P)
+
+
+❑ 데이터 베이스 보기
+show databases;
+
+
+❑ 데이터 베이스 만들기
+create database [데이터베이스이름]
+
+
+❑ 선택된 데이터베이스 보기
+select database();
+
+
+❑ 만든 데이터베이스 이용
+use [데이터베이스이름];
+
+
+❑ 데이터베이스 지우기
+drop database [데이터베이스이름];
+
+
+❑ 테이블 만들기
+create table [테이블 이름] (
+ 
+);
+
+ex)
+create table DEPARTMENT(
+    -> id INT PRIMARY KEY,
+    -> name VARCHAR(20) NOT NULL UNIQUE,
+    -> leader_id INT
+    -> );
+
+create table EMPLOYEE(
+    -> id INT PRIMARY KEY,
+    -> name VARCHAR(30) NOT NULL,
+    -> birth_date DATE,
+    -> sex CHAR(1) CHECK(sex in ('M','F')),
+    -> position VARCHAR(10),
+    -> salary INT DEFAULT 50000000,
+    -> dept_id INT,
+    -> FOREIGN KEY (dept_id) references DEPARTMENT(id)
+    -> on delete SET NULL on update CASCADE,
+    -> CHECk (salary >= 50000000)
+    -> );
+
+create table PROJECT (
+    -> id INT PRIMARY KEY,
+    -> name VARCHAR(20) NOT NULL UNIQUE,
+    -> leader_id INT,
+    -> start_date DATE,
+    -> end_date DATE,
+    -> FOREIGN KEY (leader_id) references EMPLOYEE(id)
+    -> on delete SET NULL on update CASCADE,
+    -> CHECK (start_date < end_date)
+    -> );
+
+create table WORKS_ON (
+    -> empl_id INT,
+    -> proj_id INT,
+    -> PRIMARY KEY (empl_id, proj_id),
+    -> FOREIGN KEY(empl_id) references EMPLOYEE(id)
+    -> on delete CASCADE on update CASCADE,
+    -> FOREIGN KEY(proj_id) references PROJECT(id)
+    -> on delete CASCADE on update CASCADE
+    -> );
+
+
+
+❑ 데이블 구조 변경
+alter table [변경할 데이블 이름] 할 작업
+
+ex)
+alter table DEPARTMENT add foreign key (leader_id)
+    -> references EMPLOYEE(id)
+    -> on update CASCADE
+    -> on delete SET NULL;
