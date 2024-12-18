@@ -1,0 +1,22 @@
+1. 시스템에 패키지를 설치하기 전에 리포지토리를 업데이트하고 업데이트(있는 경우)를 적용하면 강력한 경험을 보장할 수 있습니다. 주어진 dnf 명령으로 리포지토리를 업데이트할 것입니다.
+$ sudo dnf update
+
+
+2. MySQL을 설치하려면 다음 명령을 사용하십시오.
+$ sudo dnf install community-mysql-server -y
+
+
+3. rpm 으로 설치 확인
+# rpm -qa | grep mysql
+
+
+4. mysqld 시작
+# service mysqld start
+
+
+5. mysql 접속
+# mysql
+
+
+6. mysql 데이터 베이스로 이동
+use mysql
