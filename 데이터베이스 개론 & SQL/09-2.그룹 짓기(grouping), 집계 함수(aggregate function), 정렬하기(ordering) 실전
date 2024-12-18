@@ -1,0 +1,56 @@
+❑ ORDER BY 사용
+▪ SELECT * FROM EMPLOYEE ORDER BY salary;
+
+▪ SELECT * FROM EMPLOYEE ORDER BY salary DESC;   [내림차순]
+
+▪ SELECT * FROM EMPLOYEE ORDER BY dept_id ASC, salary DESC;
+
+
+
+❑ AGGERGATE FUNCTION 사용
+▪ SELECT COUNT(*) FROM EMPLOYEE;
+
+▪ SELECT COUNT(position) FROM EMPLOYEE;     [중복포함 카운트, NULL은 제외]
+
+[프로젝트 2002에 참여한 임직원 수와 최대 연봉과 최소 연봉과 평균연봉 알아보기]
+▪ SELECT COUNT(*), MAX(salary), MIN(salary), AVG(salary) FROM WORKS_ON W JOIN EMPLOYEE E ON W.empl_id = E.id  WHERE W.proj_id = 2002;
+
+
+
+❑ GROUP BY
+[각 프로젝트에 참여한 임직원 수와 최대 연봉과 최소연봉, 편균연봉을 알고 싶다]
+▪ SELECT W.proj_id, COUNT(*), MAX(salary), MIN(salary), AVG(salary) FROM WORKS_ON W JOIN EMPLOYEE E ON W.empl_id = E.id  GROUP BY W.proj_id;
+
+
+
+❑ HAVING
+▪ SELECT W.proj_id, COUNT(*), MAX(salary), MIN(salary), AVG(salary) FROM WORKS_ON W JOIN EMPLOYEE E ON W.empl_id = E.id  GROUP BY W.proj_id
+    -> HAVING COUNT(*) >= 4;
+
+
+
+❑ 예제
+[각 부서별 인원수를 인원수가 먾은 순서대로 정렬해서 알고 싶다]
+▪ SELECT dept_id, COUNT(*) AS empl_count FROM EMPLOYEE
+    -> GROUP BY dept_id ORDER BY empl_count DESC;
+
+[각 부서별 - 성별 인원수를 인원수가 많은 순서대로 정렬해서 알고 싶다]
+▪ SELECT dept_id, sex, COUNT(*) AS empl_count FROM EMPLOYEE GROUP BY dept_id, sex ORDER BY empl_count DESC;
+
+[회사 전체 평균 연봉보다 평균 연봉이 적은 부서들의 평균 연봉을 알고 싶다]
+▪ SELECT dept_id, AVG(salary) FROM EMPLOYEE GROUP BY dept_id 
+    -> HAVING AVG(salary) < ( SELECT AVG(salary) FROM EMPLOYEE);
+
+[각 프로젝트별로 프로젝트에 참여한 90년대생들의 수와 이들의 평균연봉을 알고 싶다]
+▪ SELECT proj_id, COUNT(*), ROUND(AVG(salary), 0)
+    -> FROM WORKS_ON W JOIN EMPLOYEE E ON W.empl_id = E.id
+    -> WHERE E.birth_date BETWEEN '1990-01-01' AND '1999-12-31'
+    -> GROUP BY W.proj_id;
+
+▪ SELECT proj_id, COUNT(*), ROUND(AVG(salary), 0) FROM WORKS_ON W JOIN EMPLOYEE E ON W.empl_id = E.id WHERE E.birth_date BETWEEN '1990-01-01' AND '1999-12-31' GROUP BY W.proj_id ORDER BY W.proj_id;
+
+▪ SELECT proj_id, COUNT(*), ROUND(AVG(salary), 0)
+    -> FROM WORKS_ON W JOIN EMPLOYEE E ON W.empl_id = E.id
+    -> WHERE E.birth_date BETWEEN '1990-01-01' AND '1999-12-31'
+    -> AND W.proj_id IN (SELECT proj_id FROM WORKS_ON GROUP BY proj_id HANING COUNT(*) >= 7)
+    -> GROUP BY W.proj_id;
