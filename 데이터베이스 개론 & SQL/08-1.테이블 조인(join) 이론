@@ -1,0 +1,65 @@
+❑ SQL에게 JOIN이란?
+▪ 두개 이상의 table들에 있는 데이터를 한번에 조회하는 것
+▪ 여러 종류의 JOIN이 존재한다.
+
+
+❑ IMPLICIT JOIN : from절에는 table들만 나열하고 where절에 join condition을 명시하는 방식
+▪ where절에 selection condition과 join condition이 같이 있기 때문에 가독성이 떨어진다.
+▪ old-style join syntax
+▪ 복잡한 join 쿼리를 작성하다 보면 실수로 잘못된 쿼리를 작성할 가능성이 크다.
+
+
+❑ EXPLICIT JOIN : from절에 JOIN 키워드와 함께 joined table들을 명시하는 방식
+▪ from절에서 ON 뒤에 join condition이 명시된다.
+▪ 가독성이 좋다.
+▪ 복잡한 join 쿼리 중에도 실수할 가능성이 적다.
+
+
+❑ INNER JOIN : 두 테이블에서 join condition을 만족하는 tuple들로 result table을 만드는 join
+▪ FROM table1 [INNER] JOIN table2 ON join_condition
+▪ join condition에 사용가능한 연산자(operator) : =, <, >, != 등등 여러 비교 연산자 가능
+▪ join condition에서 null 값을 가지는 tuple은 result tuple에 포함되지 못한다.
+
+
+❑ OUTER JOIN : 두 table에서 join condition을 만족하지 않는 tuple들도 result tuple에 포함하는 join
+▪ FROM table1 LEFT [OUTER] JOIN table2 ON join_condition     [왼쪽 테이블에 있는 모든 튜블을 가지고옴]
+▪ FROM table1 RIGHT [OUTER] JOIN table2 ON join_condition    [오른쪽 테이블에 있는 모든 튜블을 가지고옴]
+▪ FROM table1 FULL [OUTER] JOIN table2 ON join_condition
+▪ join condition에 사용가능한 연산자(operator) : =, <, >, != 등등 여러 비교 연산자 가능    [mysql에서 지원 안함]
+
+
+❑ EQUI JOIN : join condition에서 =(equality comparator)를 사용하는 join
+▪ 2가지 시각
+  • inner join, outer join 상관없이 = 를 사용한 join이라면 equal join으로 보는 경우
+  • inner join으로 한정해서 = 를 사용한 경우에 equal join으로 보는 경우
+
+
+❑ USING : 두 table이 equi join할 때 join하는 attribute의 이름이 같다면, USING으로 간단하게 작성할 수 있다.
+▪ 이 떄 같은 이름의 attribute는 result table에서 한번만 표시 된다.
+▪ FROM table1 [INNER] JOIN table2 USING (attribute(s))
+▪ FROM table1 LEFT [OUTER] JOIN table2 USING (attribute(s))     
+▪ FROM table1 RIGHT [OUTER] JOIN table2 USING (attribute(s))   
+▪ FROM table1 FULL [OUTER] JOIN table2 USING (attribute(s))
+
+
+❑ NATURAL JOIN : 두 table에서 같은 이름을 가진 모든 attribute pair에 대하여 equi join을 수행
+▪ join condition을 따로 명시하지 않는다.
+▪ FROM table1 NATURAL [INNER] JOIN table2 
+▪ FROM table1 NATURAL LEFT [OUTER] JOIN table2 
+▪ FROM table1 NATURAL RIGHT [OUTER] JOIN table2 
+▪ FROM table1 NATURAL FULL [OUTER] JOIN table2 
+
+
+❑ CROSS JOIN : 두 table의 tuple pair로 만들 수 있는 모든 조합(=Cartesian product)을 result table로 변환한다.
+▪ join condition이 없다
+▪ implicit cross join : FROM table1, table2
+▪ explicit cross join : FROM table1 CROSS JOIN table2
+
+
+❑ CROSS JOIN @ MYSQL
+▪ MYSQL에서는 cross join = inner join = join
+▪ CROSS JOIN에 ON(or USING)을 같이 쓰면 inner join으로 동작
+▪ INNER JOIN(or JOIN)이 ON (or USING) 없이 사용되면 cross join으로 동작
+
+
+❑ SELF JOIN : table이 자기 자신에게 join하는 경우
