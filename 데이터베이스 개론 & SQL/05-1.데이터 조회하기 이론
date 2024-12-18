@@ -1,0 +1,39 @@
+❑ SELECT statement
+▪ SELECT attribute(s) FROM table(s) [WHERE condition(s)]
+
+
+❑ AS(별명) 사용하기
+▪ AS는 테이블이나 attribute에 별명을 붙일 때 사용
+▪ AS는 생략 가능
+
+
+❑ DISTINCT 사용하기 (중복제거)
+▪ select 결과에서 중복되는 tuples은 제외하고 싶을 때 사용
+▪ SELECT DISTINCT attribute(s) FROM table(s) [WHERE condition(s)]
+
+
+❑ LIKE 사용하기 
+▪ 문자열 pattern matcging에 사용
+▪ reserved character 
+  • % : 0개 이상의 임의의 개수를 가지는 문자들을 의미 
+  • - : 하나의 문자를 의미
+▪ escape character 
+  • \ : 예약 문자를 escape시켜서 본연의 문자로 사용하고 싶을 때 사용
+▪ %로 시작하거나 _로 긑나는 프로젝트 이름을 찾고 싶다면 앞에 \붙이기
+
+
+❑ * (asterisk) 사용하기 
+▪ SELECT * FROM * [WHERE condition(s)]
+
+
+❑ SELECT without WHERE
+▪ 테이블에 있는 모든 tuples을 반환한다.
+
+
+❑ 주의사항
+▪ SELECT로 조회할 때 조건(WHERE)들을 포함해서 조회를 한다면 이 조건들과 관련된 attribute에 index가 걸려 있어야한다. 그렇지 않으면 데이터가 많아질수록 조회속도가 느려진다
+i.g) SELECT * FROM employee WHERE position = 'dev_back';
+
+▪ MYSQL 기준, 다른 EDBMS의 SQL 문법은 조금씩 다를수 있다.
+
+▪ 기본기들만 담고 있다. 세부 사항들이 더 있다.
