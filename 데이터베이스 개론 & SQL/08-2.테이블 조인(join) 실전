@@ -1,1 +1,40 @@
+❑ IMPLICIT JOIN
+▪ SELECT D.name FROM EMPLOYEE AS E, DEPARTMENT AS D WHERE E.id = 1 and E.dept_id = D.id;   [ID가 1인 임직원이 속한 부서의 이름]
 
+
+
+❑ EXPLICIT JOIN 
+▪ SELECT D.name FROM EMPLOYEE AS E JOIN DEPARTMENT AS D ON E.dept_id = D.id WHERE E.id = 1;
+
+
+
+❑ INNER JOIN
+▪ SELECT * FROM EMPLOYEE AS E INNER JOIN DEPARTMENT AS D ON E.dept_id = D.id;
+
+
+
+❑ OUTER JOIN
+▪ SELECT * FROM EMPLOYEE AS E LEFT OUTER JOIN DEPARTMENT AS D ON E.dept_id = D.id;
+
+▪ SELECT * FROM EMPLOYEE AS E RIGHT OUTER JOIN DEPARTMENT AS D ON E.dept_id = D.id;
+
+
+
+❑implicit cross join
+▪ SELECT * FROM EMPLOYEE, DEPARTMENT;
+
+
+
+❑ explicit cross join
+▪ SELECT * FROM EMPLOYEE CROSS JOIN DEPARTMENT;
+
+
+
+❑ JOIN EXAMPLE 
+[ID가 1003인 부서에 속하는 임직원중 리더를 제외한 부서원의 TD, 이름, 연봉을 알고 싶다]
+▪ SELECT E.id, E.name, E.salary  FROM EMPLOYEE E JOIN DEPARTMENT D ON E.dept_id = D.id WHERE E.dept_id = 1003 and E.id != D.leader_id;
+
+[ID가 2001인 프로젝트에 참여한 임직원들의 이름과 직군과 소속 부서 이름을 알고 싶다]
+▪ SELECT E.name As empl_name, E.position AS empl_psoition, D.name AS depl_name
+    -> FROM WORKS_ON W JOIN EMPLOYEE E ON W.empl_id = E.id LEFT JOIN DEPARTMENT D ON E.dept_id = D.id
+    -> WHERE W.proj_id = 2001;
