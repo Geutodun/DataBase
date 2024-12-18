@@ -1,0 +1,82 @@
+❑ 테이블 보기
+▪ show tables;
+
+
+❑ 테이블에 데이터 추가하기 
+▪ INSERT INTO [테이블 이름]
+    VALUES(...);
+ex)
+INSERT INTO EMPLOYEE values (2, 'MESSI', '1999-07-07', 'F', 'DSGN', 60000000, null);
+
+INSERT INTO employee
+    -> values (1, 'MESSI', '1987-02-01', 'M', 'DEV_BACK', 100000000, null);
+
+insert into EMPLOYEE (name, birth_date, sex, position, id)           *특성 순서 정해서 넣기
+    -> values('KIM', '2000-09-05', 'F', 'DEV_BACK', 3);
+
+INSERT INTO employee
+    -> values (1, 'MESSI', '1987-02-01', 'M', 'DEV_BACK', 100000000, null);
+
+INSERT INTO EMPLOYEE values
+    -> (4, 'BROWN', '1967-12-01', 'M', 'CEO', 120000000, null),
+    -> (5, 'DINGYO', '1990-03-15', 'M', 'CTO', 130000000, null);
+
+INSERT INTO EMPLOYEE values
+  ->  (6, 'JULIA', '1988-08-18', 'F', 'CFO', 110000000, null),
+  ->  (13, 'JUNG', '1999-06-15', 'M', 'PO', 80000000, null);
+
+INSERT INTO EMPLOYEE values (11, 'PARK', '1977-11-21', 'F', 'PLN', 75000000, null);
+
+INSERT INTO DEPARTMENT values
+    -> (1001, 'headquarter', 4),
+    -> (1002, 'HR', 6),
+    -> (1003, 'debelopment', 1),
+    -> (1004, 'design', 3),
+    -> (1005, 'product', 13);
+
+INSERT INTO PROJECT values
+    -> (2001, '쿠폰구매', 13, '2022-04-01', '2022-05-01'),
+    -> (2002, '백엔드', 13, '2022-06-01', '2022-07-01'),
+    -> (2003, '홈페이지', 11, '2022-05-01', '2022-06-01');
+
+INSERT INTO WORKS_ON values
+    -> (5, 2001),
+    -> (13, 2001),
+    -> (11, 2003),
+    -> (6, 2002),
+    -> (1, 2001),
+    -> (2, 2002),
+    -> (3, 2003),
+    -> (4,2001);
+
+
+❑ 테이블 속성 보기
+show create table EMPLOYEE;
+
+SELECT * FROM EMPLOYEE WHERE id = 1;
+
+
+❑ 테이블 attribute(요소) 보기
+SELECT * FROM [테이블 이름];
+
+
+❑ 테이블 데이터 수정
+UPDATE [테이블 이름] SET dept_id = 1003 WHERE id = 1;
+
+UPDATE EMPLOYEE SET name = 'HONG' WHERE id = 2;
+
+UPDATE EMPLOYEE SET salary = salary + 1000 WHERE dept_id = 1003;
+
+UPDATE EMPLOYEE, WORKS_ON SET 
+    -> salary = salary + 300 
+    -> WHERE id = empl_id and proj_id = 2003;
+
+UPDATE EMPLOYEE, WORKS_ON SET  
+    -> salary = salary - 10000  
+    -> WHERE EMPLOYEE.id = WORKS_ON.empl_id and proj_id = 2001;
+
+
+❑ 테이블 데이터 삭제하기
+DELETE FROM [테이블 이름]
+
+DELETE FROM [테이블 이름] WHERE id = 8;
