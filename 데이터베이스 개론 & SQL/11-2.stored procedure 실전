@@ -1,0 +1,39 @@
+❑ stored procedure 사용
+[두 정수의 곱셈 결과를 가져오는 프로시저 작성]
+delimiter $$
+CREATE PROCEDURE product(IN a int, IN b int, OUT result int)
+    -> BEGIN 
+    -> SET result = a * b;
+    -> END
+    -> $$
+delimiter ;
+call product(5, 7, @result);
+select @result;
+
+
+[두 정수를 맞바꾸는 프로스시저를 작성]
+CREATE PROCEDURE swap(INOUT a int, INOUT b int) 
+    -> BEGIN 
+    -> set @temp = a;
+    -> set a = b;
+    -> set b = @temp;
+    -> END
+    -> $$
+delimiter ;
+set @a = 5, @b = 7;
+all swap(@a, @b);
+select @a, @b;
+
+
+[각 부서별 평균 연봉을 가져오는 프로시저를 작성하자]
+CREATE PROCEDURE get_dept_avg_salary()
+    -> BEGIN
+    -> select dept_id, avg(salary)
+    -> from EMPLOYEE
+    -> group by dept_id;
+    -> END
+    -> $$
+delimiter ;
+call get_dept_avg_salary();
+
+▪ 이외에도 조건문을 통해 분기처리를 하거나 반복문을 수행하거나 에러를 핸들링하거나 에러를 일으키는등의 다양한 로직 정의 가능
