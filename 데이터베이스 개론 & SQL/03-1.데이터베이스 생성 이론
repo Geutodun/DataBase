@@ -1,0 +1,244 @@
+❑ SQL : Structured Query Language
+▪ 현업에서 쓰이는 relational DBMS의 표준 언어
+▪ 종합적인 database 언어 : DDL + DML + VDL
+
+
+
+❑ SQL 주요 용어
+relation ➔ table
+attribute ➔ column
+tuple ➔ row 
+domain ➔ domain
+
+
+
+❑ SQL에서 relation이란?
+▪ 중복된 tuple을 허용한다
+▪ multiset(= bag) of tuples @ SQL
+
+
+
+❑ SQL & RDBMS : SQL은 EDBMS의 표준 언어이지만 실제 구현에 강제가 없기 때문에 RDBMS마다 제공하는 SQL의 스펙이 조금씩 다르다
+
+
+
+❑ DATABASE vs SCHEMA
+▪ mysql에서는 DATABASE와 SCHEMA가 같은 뜻을 의미
+▪ create database [데이터베이스이름] = create schema [데이터베이스이름]
+▪ 다른 RDBMS에서는 의미가 다르게 쓰임
+▪ i.g) PostgreSQL에서는 SCHEMA가 DATABASE의 namespace를 의미
+
+
+
+❑ attrivute data type : 숫자
+▪ 정수 : 정수를 저장할 때 사용
+  • TINYINT : 1 byte 
+  • SMALLINT : 2 byte 
+  • MEDIUMINT : 3 byte 
+  • INT or INTEGER : 4 byte 
+  • BIGNT : 8 byte 
+
+▪ 부동 소수점 방식 : 실수를 저장할 때 사용, 고점 수수점 방식에 비해 정확하지 않다
+  • FLOAT : 4 byte
+  • DECIMAL or NUMERIC : 8 byte
+
+▪ 고점 소수점 방식 : 실수를 정확하게 저장할 때 사용
+  • DECIMAL or NUMERIC : variable
+
+
+
+❑ attrivute data type : 문자열
+▪ 고정 크기 문자열 
+  • 최대 몇 개의 '문자'를 가지는 문자열을 저장할지를 지정
+  • 저장될 문자열의 길이가 최대 길이보다 작으면 나머지를 space로 채워서 저장
+  • name char(4) 일 때 : 'a   ', '한국  ', '담원기아', 'lol '
+  • CHAR(n)  [ 0 <= n <= 255]
+
+▪ 가변 크기 문자열 
+  • 최대 몇 개의 '문자'를 가지는 문자열을 저장할지를 지정
+  • 저장될 문자열의 길이 만큼만 저장
+  • VARCHAR(n) [ 0 <= n <= 65,535]
+
+▪ 사이즈가 큰 문자열 
+  • 사이즈가 큰 문자열을 저장할 때 사용
+  • TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT
+
+
+
+❑ attrivute data type : 날짜와 시간
+▪ 날짜 : 년, 월, 일을 저장
+  • YYYY-MM-DD
+  • DATE
+
+▪ 시간 : 시, 분, 초를 저장
+  • hh:mm:ss or hhh:mm:ss
+  • TIME
+
+▪ 날짜와 시간 : 날짜와 시간을 같이 표현
+  • YYYY-MM-DD hh:mm:ss
+  • DATETIME
+  • TIMESTAMP (time-zone이 반영됨)
+
+
+
+❑ attrivute data type : 그 외
+▪ byte-string : (문자열이 아니라) byte string을 저장
+  • BINARY
+  • VARBINARY
+  • BLOB type
+
+▪ boolean :true, false를 저장, mysql에는 따로 없음
+  • TINYINT로 대체해서 사용
+
+▪ 위치 관련 : 위치 관련 정보를 저장
+  • GEOMETRY
+  • etc
+
+▪ JSON : json 형태의 데이터를 저장
+  • e.g) {"name":"messi","age':33}
+  • JSON
+
+
+
+❑ PRIMARY KEY 선언 방법
+▪ attribute 하나로 구성
+create table PLAYER(
+    id  INT PRIMARY KEY
+.....
+);
+
+▪ attribute 하나 이상으로 구성
+create table PLAYER(
+    id  VARCHAR(12),
+    number INT,
+.....
+    PRIMARY KEY (id, number)
+);
+
+
+
+❑ key constraints(제약[특성]) : UNIQUE
+▪ attribute(s)는 중복된 값을 가실 수 없다.
+▪ 단, NULL은 중복을 허용할 수도 있다. ( RDBMS 마다 다름 )
+
+
+
+
+❑ UNIQUE 선언
+▪ attribute 하나로 구성
+create table PLAYER(
+    id  INT UNIQUE
+.....
+);
+
+▪ attribute 하나 이상으로 구성
+create table PLAYER(
+    id  VARCHAR(12),
+    number INT,
+.....
+   UNIQUE (id, number)
+);
+
+
+
+❑ key constraints(제약[특성]) : NOT NULL
+▪ attribute가 NOT NULL로 지정되면 해당 attribute는 NULL을 값으로 가질 수 없다
+
+
+
+❑ NOT NULL 선언
+create table PLAYER(
+    id  INT NOT NULL
+.....
+);
+
+
+
+❑ key constraints(제약[특성]) : DEFAULT
+▪ attribute의 DEFAULT 값을 정의할 때 사용
+▪ 새로운 tuple을 저장할 때 해당 attribute에 대한 값이 없다면 DEFAULT 값으로 저장
+
+
+
+❑ DEFAULT 선언
+create table PLAYER(
+    id  INT DEFAULT
+.....
+);
+
+
+
+❑ key constraints(제약[특성]) : CHECK
+▪ attribute의 값을 제한하고 싶을 때 사용
+
+
+
+❑ UNIQUE 선언
+▪ attribute 하나로 구성
+create table PLAYER(
+    id  INT CHECK ( id > 20 )
+.....
+);
+
+▪ attribute 하나 이상으로 구성
+create table PLAYER(
+    number1 DATE,  
+    number2 DATE,
+.....
+   CHECK (number1 <  number2)
+);
+
+
+
+❑ FOREIGN KEY 선언 방법
+create table Employee(
+    .......
+    dept_id
+    FOREIGN KEY (dept_id)
+        references DEPARTMENT(id)
+        on delete reference_option
+        on update reference_option
+);
+▪ reference_option
+  • CASCADE : 참조값의 삭제/변경을 그대로 반영
+  • SET NULL : 참조값이 삭제/변경시 NULL로 변경
+  • RESTRICT : 참조값이 삭제/변경되는 것을 금지
+  • NO ACTION : RESTRICT와 유사
+  • SET DEFAULT : 참조값이 삭제/변경시 default 값으로 변경
+
+
+
+❑ constraint 이름 명시하기
+▪ 이름을 붙이면 어떤 constraint을 위반했는지 쉽게 파악할 수 있다.
+▪ constraint를 삭제하고 싶을 때 해당 이름으로 삭제 가능
+
+
+
+❑ constraint 방법
+create table TEST(
+    age INT CONSTRAINT age_over_20 CHECK (age > 20)
+);
+▪ CONSTRAINT age_over_20 이름을 붙였을 때 : Check constraint 'age_over_20' is violated
+▪ CONSTRAINT age_over_20 이름을 생략했을 때 : Check constraint 'test_chk_1' is violated
+
+
+
+❑ ALTER TABLE : table의 schema를 변경하고 싶을 때 사용
+▪ 이미 서비스 중인 table의 schema를 변경하는 것이라면 변경 작업 때문에 서비스의 백엔드에 영향이 없을지 검토한 후에 변셩하느 것이 중요
+▪ 유형
+  • attribute 추가 : ALTER TABLE employee ADD blood VARCHAR(2);
+  • attribute 이름 변경 : ALTER TABLE employee RENAME COLUMN num TO num1;
+  • attribute 타입 변경 : ALTER TABLE employee MODIFY COLUMN blood CHAR(2);
+  • table 이름 변경 : ALTER TABLE employee RENAME TO employee1
+  • primary key 추가 : ALTER TABLE employee ADD PRIMARY KEY (id);
+  .....
+
+
+
+❑ DROP TABLE : table을 삭제할 때 사용
+▪ DROP TABLE [테이블 이름]
+
+
+
+❑ database 구조를 정의할 때 중요한 점
+▪ 만들려는 서비스의 스펙과 데이터 일관성, 편의성, 확장성 등등을 종합적으로 고려하여 DB 스키마를 적절하게 정의하는 것이 중요
