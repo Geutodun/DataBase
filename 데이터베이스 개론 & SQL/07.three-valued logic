@@ -1,0 +1,27 @@
+❑ SQL에서 NULL의 의미 
+▪ unknown
+▪ unavailable or withheld
+▪ not applicable
+
+
+❑ NULL과 SQL three-valued logic
+▪ SQL 에서 NULL과 비교 연산을 하게 되면 그 결과는 UNKNOWN이다.
+▪ UNKNOWN은 'TRUE 일수도 있고 FALSE일 수도 있다'라는 의미이다.
+▪ three-valued logic : 비교/논리 연산의 결과로 TRUE, FALSE, UNKNOWN을 가진다.
+
+
+❑ WHERE절의 condition(s)
+▪ where절에 있는 condition(s)의 결과가 TRUE인 tuple(s)만 선택 된다.
+▪ 즉, 결과가 FALSE거나 UNKNOWN이면 tuple은 선택되지 않는다.
+
+
+❑ NOT IN 사용시 주의 사함
+▪ v NOT IN (v1, v2, v3)의 의미 ➔ v != v1 AND v != v2 AND v != v3
+▪ 만약 v1, v2, v3 중에 하나이상이 NULL이라면? ➔ 같은 v가 있으면 FALSE, 아니면 UNKNOWN
+
+
+
+❑ NULL
+▪ SELECT id FROM EMPLOYEE WHERE birth_date IS NULL;     [NULL을 찾는 법]
+
+▪ SELECT id FROM EMPLOYEE WHERE birth_date IS NOT NULL;
