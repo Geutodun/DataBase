@@ -1,0 +1,50 @@
+❑ subquery (nested query or inner query)
+▪ SELECT, INSERT, UPDATE, DELETE에 포함된 query
+▪ subquery는 () 안에 기술된다.
+
+
+❑ outer query (main query)
+▪ subquery를 포함하는 query
+
+
+❑ correlated query
+▪ subquery가 바깥쪽 query의 attribute를 참조할 때, correlated subquery라 부름
+
+
+❑ v IN (v1, v2, v3, . . . ..)
+▪ v가 (v1, v2, v3, . . . ..) 중에 하나와 값이 같다면 TRUE를 return 한다.
+▪ (v1, v2, v3, . . . ..)는 명시적인 값들의 집합일 수도 있고 subquery의 결과(set or multiset)일 수도 있다.
+
+
+❑ NOT IN (v1, v2, v3, . . . ..)
+▪ v가 (v1, v2, v3, . . . ..)의 모든 값과 값이 다르다면 TRUE를 return 한다.
+
+
+* unqualified attribute가 참조하는 table은 해당 attribute가 사용된 query를 포함하여 그 query의 바깥쪽으로 존재하는 
+  모든 queries 중에 해당 attribute 이름을 가지는 가장 가까이에 있는 table을 참조한다.
+
+
+❑ EXISTS 
+▪ subquery의 결과가 최소 하나의 row라도 있다면 TRUE를 반환  
+
+
+❑ NOT EXISTS 
+▪ subquery의 결과가 최소 하나의 row라도 없다면 TRUE를 반환  
+
+
+❑ ANY
+▪ v 비교연산자(comparison_operator) ANY (subquery) 
+▪ subquery가 반환한 결과들 중에 단 하나라도 v와의 비교 연산이 TRUE라면 TRUE를 반환한다.
+▪ SOME도 ANY와 같은 역할을 한다.
+
+
+❑ ALL
+▪ v 비교연산자(comparison_operator) ALL (subquery) 
+▪ subquery가 반환한 결과들과 v와의 비교 연산이 TRUE라면 TRUE를 반환한다.
+
+
+❑ 참고사항 
+▪ 성능비교 : IN VS EXISTS
+  • RDBMS의 종류와 버전에 따라 다르며 최근 버전은 많은 개선이 이루어져서 IN과 EXISTS의 성능 차이가 거의 없을 것이다.
+
+▪ 오늘 내용은 MYSQL 기준 
